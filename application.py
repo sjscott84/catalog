@@ -24,7 +24,6 @@ app = Flask(__name__)
 CLIENT_ID = json.loads(open('/var/www/myApp/catalog/client_secrets.json','r').read())['web']['client_id']
 
 engine = create_engine("postgresql://catalog:password@127.0.0.1/artistworkwithuser")
-# engine = create_engine('sqlite:///artistworkwithuser.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -193,8 +192,6 @@ def showArtists():
     names
     """
     user =  login_session.get('user_id')
-# login_session['user_id'] = 0
-   #  user = login_session['user_id']
     items = session.query(Artist).all()
     work = session.query(ArtWork).order_by(func.random()).first()
 

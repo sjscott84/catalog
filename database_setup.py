@@ -50,8 +50,7 @@ class ArtWork(Base):
             'image_link': self.image_link,
         }
 
+
 engine = create_engine("postgresql://catalog:password@127.0.0.1/artistworkwithuser")
-# engine = create_engine(
-  # 'sqlite:///artistworkwithuser.db')
 
 Base.metadata.create_all(engine)
