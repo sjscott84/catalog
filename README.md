@@ -32,17 +32,21 @@ The following software was installed on the server:
 The following configurations were made:
 
 The below was added to /etc/apache2/sites-enabled/000-default.conf:  
-  `WSGIScriptAlias / /var/www/myApp/myApp.wsgi  
-       <Directory /var/www/myApp/catalog>  
-            WSGIProcessGroup catalog  
-            WSGIApplicationGroup %{GLOBAL}  
-            Order deny,allow  
-            Allow from all  
-        </Directory>`  
+```
+WSGIScriptAlias / /var/www/myApp/myApp.wsgi  
+<Directory /var/www/myApp/catalog>  
+    WSGIProcessGroup catalog  
+    WSGIApplicationGroup %{GLOBAL}  
+    Order deny,allow  
+    Allow from all  
+</Directory>  
+```
         
-The below was added to /var/www/myApp/myApp.wsgi:  
-`import sys  
+The below was added to /var/www/myApp/myApp.wsgi:
+```
+import sys  
 sys.path.insert(0,"/var/www/myApp/")  
 from catalog.application import app as application  
-application.secret_key = 'super_secret_key'`   
+application.secret_key = 'super_secret_key'
+```
 
