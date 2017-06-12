@@ -50,10 +50,4 @@ from catalog.application import app as application
 application.secret_key = 'super_secret_key'
 ```
 
-## Learning resources used  
-
-The following websites were used in figuring this project out, beyond the documents for the installed packages:  
-* www.digitalocean.com
-* www.linux.com  
-
 
