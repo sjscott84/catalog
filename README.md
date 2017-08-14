@@ -1,35 +1,53 @@
-rdb-fullstack
+Linux Server Setup  
 =============
 Project for Udacity Full Stack Web Developer Nanodegree
 
-## Installation
+## To access server
+  
+The server can be found at ip address 52.41.137.76 port 2200  
 
-To run this program you will need to have the following installed:  
-* Python
-* Vagrant
-* VirtualBox
+## Hosted website   
 
-## Running the Project Locally  
+The hosted application can be found at http://52.41.137.76/artists/  
 
-Clone this GitHub repository and save to your local machine.  
-CD into project and then the vagrant folder in this project.  
-In the terminal enter 'vagrant up' and once done enter 'vagrant ssh'.  
-CD into /vagrant to enter the virtual machine.   
+## Software installed to server    
 
-## Creating a database for the catalog project  
+The following software was installed on the server:  
 
-CD into catalog.  
-To create a database enter 'python database_setup.py'.  This will create a new database called artistworkwithuser.db inside the catalog folder.  
+* apache2  
+* libapache2-mod-wsgi  
+* postgresql  
+* git  
+* python-pip  
+* python-dev  
+* build-essential
+* Flask  
+* sqlalchemy  
+* psycopg2  
+* oauth2client  
+* requests  
 
-## Running catalog project  
+## Configuration  
 
-CD into catalog and enter 'python application.py'.  
-You can then view this project at localhost:5000.
-If port 5000 is unavailable you can change the port in line 355 in application.py.  
+The following configurations were made:
 
-## Get Google Client ID and Client Secret  
+The below was added to /etc/apache2/sites-enabled/000-default.conf:  
+```
+WSGIScriptAlias / /var/www/myApp/myApp.wsgi  
+<Directory /var/www/myApp/catalog>  
+    WSGIProcessGroup catalog  
+    WSGIApplicationGroup %{GLOBAL}  
+    Order deny,allow  
+    Allow from all  
+</Directory>  
+```
+        
+The below was added to /var/www/myApp/myApp.wsgi:
+```
+import sys  
+sys.path.insert(0,"/var/www/myApp/")  
+from catalog.application import app as application  
+application.secret_key = 'super_secret_key'
+```
 
-In order for the google user authentication to work you will need to create a Google API console project and a client ID and client secret.  Instructions on how to do this can be found at https://developers.google.com/identity/sign-in/web/devconsole-project.  
-
-Once project and client ID is created download the JSON file and save into the catalog project file and call it client_secrets.json.  
 
