@@ -318,7 +318,7 @@ def showArtistDetails(idOfArtist, nameOfArtist):
     Retrieves all art works in ArtWork table in db assoicated
     with an artist
     """
-    user = login_session['user_id']
+    #user = login_session['user_id']
     artistFromDB = session.query(Artist).filter_by(id=idOfArtist).one()
     items = session.query(ArtWork).filter_by(artist_id=idOfArtist)
 
@@ -328,12 +328,12 @@ def showArtistDetails(idOfArtist, nameOfArtist):
     # that user created
     if 'username' not in login_session:
         return render_template('public_art_works.html', items=items,
-                               name=nameOfArtist, id=idOfArtist, user=user)
+                           name=nameOfArtist, id=idOfArtist)
     else:
         return render_template('art_works.html', items=items,
                                name=nameOfArtist, id=idOfArtist,
                                user_id=login_session['user_id'],
-                               creator_id=artistFromDB.creator_id, user=user)
+                               creator_id=artistFromDB.creator_id, user=login_session['user_id'])
 
 
 # Add a new work for a particular artist
